@@ -1,7 +1,7 @@
 module pe(
     input wire clka,
     input wire clkb,
-    input wire rst,
+    input wire rst_n,
     input wire mode,
     input wire read,
     input wire left,
@@ -44,8 +44,8 @@ half_adder left_3(
     .co()
 );
 
-always@(posedge clk_a or posedge rst) begin
-    if (rst) co_reg_left <= 0;
+always@(posedge clk_a or negedge rst_n) begin
+    if (!rst_n) co_reg_left <= 0;
     else co_reg_left <= co_left_1;
 end
 
@@ -86,8 +86,8 @@ full_adder top_3(
     .co()
 );
 
-always@(posedge clk_a or posedge rst) begin
-    if (rst) co_reg_top <= 0;
+always@(posedge clk_a or negedge rst_n) begin
+    if (!rst_n) co_reg_top <= 0;
     else co_reg_top <= co_top_1;
 end
 
@@ -126,8 +126,8 @@ full_adder right_3(
     .co()
 );
 
-always@(posedge clk_a or posedge rst) begin
-    if (rst) co_reg_right <= 0;
+always@(posedge clk_a or negedge rst_n) begin
+    if (!rst_n) co_reg_right <= 0;
     else co_reg_right <= co_right_1;
 end
 
@@ -167,8 +167,8 @@ full_adder down_3(
     .co()
 );
 
-always@(posedge clk_a or posedge rst) begin
-    if (rst) co_reg_down <= 0;
+always@(posedge clk_a or negedge rst_n) begin
+    if (!rst_n) co_reg_down <= 0;
     else co_reg_down <= co_down_1;
 end
 // three mux control by mode 
@@ -197,8 +197,8 @@ end
 
 assign residue = r[0];
 
-always@ (posedge clka or posedge rst) begin
-    if (rst)
+always@ (posedge clka or negedge rst_n) begin
+    if (!rst_n)
         shift_reg <= 8'b0;
     else begin
         shift_reg[7] <= mux3_out;
@@ -249,8 +249,8 @@ assign read_or_acc_result[7] = read ? (neighbor_solution) : (acc_sum[7]);
 // accumulator fip flop 
 assign clk_b = clkb & (read | mode);
 
-always@ (posedge clk_b or posedge rst) begin
-    if (rst) acc_reg <= 8'b0;
+always@ (posedge clk_b or negedge rst_n) begin
+    if (!rst_n) acc_reg <= 8'b0;
     else 
         for (j = 0; j < 8; j = j + 1) 
             acc_reg[j] <= read_or_acc_result[j];

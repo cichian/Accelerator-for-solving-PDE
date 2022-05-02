@@ -3,7 +3,7 @@ module testbench (
 );
 reg clka;
 reg clkb;
-reg rst;
+reg rst_n;
 reg mode;
 reg read;
 reg left;
@@ -25,7 +25,7 @@ localparam [7:0] r_down = {1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0};
 pe ins1 (
     .clka (clka),
     .clkb (clkb),
-    .rst(rst),
+    .rst_n(rst_n),
     .mode(mode),
     .read(read),
     .left(left),
@@ -47,13 +47,13 @@ end
 initial begin
     clka <= 0;
     clkb <= 0;
-    rst <= 0;
+    rst_n <= 1;
     mode <= 0;
     read <= 0;
     neighbor_solution <= 0;
-#5 rst <= 1;
-#5 rst <= 1;
-#5 rst <= 0;
+#5 rst_n <= 0;
+#5 rst_n <= 0;
+#5 rst_n <= 1;
    mode <= 1;
    
    left <= r_left[7];
