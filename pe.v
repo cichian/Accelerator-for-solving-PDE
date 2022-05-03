@@ -172,15 +172,15 @@ always@(posedge clk_a or negedge rst_n) begin
     else co_reg_down <= co_down_1;
 end
 // three mux control by mode 
-reg [7:0] shift_reg;
-reg [7:0] r; // parrallel output of shift register
+reg [8:0] shift_reg;
+reg [8:0] r; // parrallel output of shift register
 wire mux1_out;
 wire mux2_out;
 wire mux3_out;
 
-assign mux1_out = mode ? sum_down_1 : r[6];
-assign mux2_out = mode ? sum_down_2 : r[7];
-assign mux3_out = mode ? sum_down_3 : r[7];
+assign mux1_out = mode ? sum_down_1 : r[7];
+assign mux2_out = mode ? sum_down_2 : r[8];
+assign mux3_out = mode ? sum_down_3 : r[8];
 
 // serializer and div-4 fip flop 
 
@@ -193,17 +193,19 @@ always@ (*) begin
     r[5] = shift_reg[5];
     r[6] = shift_reg[6];
     r[7] = shift_reg[7];
+    r[8] = shift_reg[8];
 end
 
 assign residue = r[0];
 
 always@ (posedge clka or negedge rst_n) begin
     if (!rst_n)
-        shift_reg <= 8'b0;
+        shift_reg <= 9'b0;
     else begin
-        shift_reg[7] <= mux3_out;
-        shift_reg[6] <= mux2_out;
-        shift_reg[5] <= mux1_out;
+        shift_reg[8] <= mux3_out;
+        shift_reg[7] <= mux2_out;
+        shift_reg[6] <= mux1_out;
+        shift_reg[5] <= shift_reg[6];
         shift_reg[4] <= shift_reg[5];
         shift_reg[3] <= shift_reg[4];
         shift_reg[2] <= shift_reg[3];
