@@ -202,6 +202,7 @@ always@ (posedge clka or negedge rst_n) begin
     if (!rst_n)
         shift_reg <= 9'b0;
     else begin
+        //shift_reg[9] <= mux3_out;
         shift_reg[8] <= mux3_out;
         shift_reg[7] <= mux2_out;
         shift_reg[6] <= mux1_out;

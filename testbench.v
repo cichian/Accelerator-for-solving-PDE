@@ -16,10 +16,15 @@ reg neighbor_solution;
 
 reg [2:0] counter;
 
-localparam [7:0] r_left = {1'b1, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 1'b0, 1'b0};
+/*localparam [7:0] r_left = {1'b1, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 1'b0, 1'b0};
 localparam [7:0] r_top = {1'b1, 1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 1'b1, 1'b1};
 localparam [7:0] r_right = {1'b1, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0};
-localparam [7:0] r_down = {1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0};
+localparam [7:0] r_down = {1'b1, 1'b1, 1'b0, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0};*/
+
+localparam [7:0] r_left = {1'b0, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0};
+localparam [7:0] r_top = {1'b0, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0};
+localparam [7:0] r_right = {1'b0, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0};
+localparam [7:0] r_down = {1'b0, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0};
 
 
 pe ins1 (
@@ -119,10 +124,7 @@ initial begin
 #5 clka <= 1; // 8
 #5 clka <= 0;
 
-   left <= 1'bz;
-   top <= 1'bz;
-   right <= 1'bz;
-   down <= 1'bz;
+
 
 #5 clkb <= 1;
 #5 clkb <= 0;
@@ -224,10 +226,7 @@ initial begin
 #5 clka <= 1; // 8
 #5 clka <= 0;
 
-   left <= 1'bz;
-   top <= 1'bz;
-   right <= 1'bz;
-   down <= 1'bz;
+
 
 #5 clkb <= 1;
 #5 clkb <= 0;
